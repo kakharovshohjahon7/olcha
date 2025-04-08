@@ -33,3 +33,19 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         self.total_price = self.product.price * self.quantity
         super(Order, self).save(*args, **kwargs)
+
+
+from django.db import models
+
+class Category(models.Model):
+    objects = None
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='subcategories')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name

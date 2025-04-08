@@ -4,6 +4,8 @@ from .serializers import RegisterSerializer, ProductSerializer
 from .models import Product
 from .models import Order
 from .serializers import OrderSerializer
+from .models import Category
+from .serializers import CategorySerializer
 
 # Ro‘yxatdan o‘tish
 class RegisterView(generics.CreateAPIView):
@@ -30,3 +32,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
             return [permissions.IsAuthenticated()]
         return [permissions.AllowAny()]
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

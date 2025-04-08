@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Product
 from .models import Order
+from .models import Category
 
 
 # Foydalanuvchini ro‘yxatdan o‘tkazish uchun
@@ -29,3 +30,10 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'user', 'product', 'quantity', 'total_price', 'ordered_at']
+
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'slug', 'parent', 'created_at']
