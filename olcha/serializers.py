@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from .models import Product
 from .models import Order
 from .models import Category
+from .models import Comment
 
 
-# Foydalanuvchini ro‘yxatdan o‘tkazish uchun
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -20,7 +20,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
 
-# Mahsulotlar uchun
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -37,3 +37,11 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name', 'slug', 'parent', 'created_at']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'user', 'text', 'created_at']
